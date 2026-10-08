@@ -56,4 +56,34 @@ public class ProductController {
         List<ProductResponseDto> products = productService.getProductsByCategory(categoryId);
         return ResponseEntity.ok(products);
     }
+
+    @PostMapping("/{productId}/categories/{categoryId}")
+    public ResponseEntity<ProductResponseDto> addCategoryToProduct(
+            @PathVariable UUID productId,
+            @PathVariable Long categoryId) {
+        ProductResponseDto product = productService.addCategoryToProduct(productId, categoryId);
+        return ResponseEntity.ok(product);
+    }
+
+    @DeleteMapping("/{productId}/categories/{categoryId}")
+    public ResponseEntity<ProductResponseDto> removeCategoryFromProduct(
+            @PathVariable UUID productId,
+            @PathVariable Long categoryId) {
+        ProductResponseDto product = productService.removeCategoryFromProduct(productId, categoryId);
+        return ResponseEntity.ok(product);
+    }
+
+    @PostMapping("/{productId}/images")
+    public ResponseEntity<ProductResponseDto> addProductImages(
+            @PathVariable UUID productId,
+            @RequestBody List<String> imageUrls) {
+        ProductResponseDto product = productService.addProductImages(productId, imageUrls);
+        return ResponseEntity.ok(product);
+    }
+
+    @GetMapping("/{productId}/images")
+    public ResponseEntity<List<String>> getProductImages(@PathVariable UUID productId) {
+        List<String> images = productService.getProductImages(productId);
+        return ResponseEntity.ok(images);
+    }
 }
